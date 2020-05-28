@@ -8,9 +8,11 @@ const LinkList = (props) => {
   const { firebase } = useContext(FirebaseContext);
   const [links, setLinks] = useState([]);
   const [cursor, setCursor] = useState(null);
+  const [loading, setLoading] = useState(false);
   const isNewPage = props.location.pathname.includes('new');
   const isTopPage = props.location.pathname.includes('top');
   const page = +props.match.params.page;
+  const linksRef = firebase.db.collection('links');
 
   useEffect(() => {
     const unsubscribe = getLinks();
@@ -19,25 +21,24 @@ const LinkList = (props) => {
 
   function getLinks() {
     const hasCursor = Boolean(cursor);
+    setLoading(false);
+
     if (isTopPage) {
       //top page
-      return firebase.db
-        .collection('links')
+      return linksRef
         .orderBy('voteCount', 'desc')
         .limit(LINKS_PER_PAGE)
         .onSnapshot(handleSnapshot);
     }
     else if (page === 1) {
       //homepage
-      return firebase.db
-        .collection('links')
+      return linksRef
         .orderBy('created', 'desc')
         .limit(LINKS_PER_PAGE)
         .onSnapshot(handleSnapshot);
     }
     else if (hasCursor) {
-      return firebase.db
-        .collection('links')
+      return linksRef
         .orderBy('created', 'desc')
         .startAfter(cursor.created)
         .limit(LINKS_PER_PAGE)
@@ -51,6 +52,7 @@ const LinkList = (props) => {
           const lastLink = links[links.length - 1];
           setLinks(links);
           setCursor(lastLink);
+          setLoading(false);
         });
       return () => { }
     }
@@ -63,6 +65,7 @@ const LinkList = (props) => {
     const lastLink = links[links.length - 1];
     setLinks(links);
     setCursor(lastLink);
+    setLoading(false);
   }
 
   function visitPreviousPage() {
@@ -80,7 +83,7 @@ const LinkList = (props) => {
   const pageIndex = page ? (page - 1) * LINKS_PER_PAGE + 1 : 0;
 
   return (
-    <div className="ui container">
+    <div className="ui container" style={{ opacity: loading ? '0.25' : '1' }}>
       <div className="ui segment">
         {links.map((link, index) => (
           <LinkItem
@@ -92,12 +95,12 @@ const LinkList = (props) => {
         ))}
         {isNewPage && (
           <>
-            <button class="ui labeled icon button" onClick={visitPreviousPage}>
+            <button className="ui labeled icon button" onClick={visitPreviousPage}>
               Previous
-              <i class="left arrow icon"></i>
+              <i className="left arrow icon"></i>
             </button>
-            <button class="ui right labeled icon button" onClick={visitNextPage}>
-              <i class="right arrow icon"></i>
+            <button className="ui right labeled icon button" onClick={visitNextPage}>
+              <i className="right arrow icon"></i>
                  Next
             </button>
           </>
