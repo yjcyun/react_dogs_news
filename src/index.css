@@ -17,11 +17,21 @@
 }
 
 /* logout button */
-.logout {
+.logout, .vote-btn {
   cursor: pointer;
 }
 
 /* forgot password link */
 .forgot {
   margin-top: 2rem;
+}
+
+/* link item */
+.vote-btn {
+  margin-left: 0.5rem;
+  color: darkgray;
+
+}
+.content{
+  margin-left: 2.7rem !important;
 }

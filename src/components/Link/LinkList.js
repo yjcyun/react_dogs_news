@@ -22,15 +22,17 @@ const LinkList = (props) => {
   }
 
   return (
-    <div>
+    <div className="ui container">
+    <div className="ui segment">
       {links.map((link, index) => (
-        <LinkItem
-          key={link.id}
-          showCount={true}
-          link={link}
-          index={index + 1}
-        />
+          <LinkItem
+            key={link.id}
+            showCount={true}
+            link={link}
+            index={index + 1}
+          />
       ))}
+    </div>
     </div>
   )
 }
