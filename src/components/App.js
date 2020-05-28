@@ -6,10 +6,12 @@ import LinkList from './Link/LinkList';
 import LinkDetail from './Link/LinkDetail';
 import Login from './Auth/Login';
 import ForgotPassword from './Auth/ForgotPassword';
+import Header from './Header';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/new/1" />} />
         <Route path="/create" component={CreateLink} />
