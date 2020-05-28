@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import firebaseConfig from './config';
 
 
@@ -7,6 +8,7 @@ class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.db = app.firestore();
   }
 
   //register
@@ -22,17 +24,17 @@ class Firebase {
   }
 
   // login
-  async login(email,password) {
-    return await this.auth.signInWithEmailAndPassword(email,password);
+  async login(email, password) {
+    return await this.auth.signInWithEmailAndPassword(email, password);
   }
 
   // logout
-  async logout(){
+  async logout() {
     await this.auth.signOut();
   }
 
   // reset password
-  async resetPassword(email){
+  async resetPassword(email) {
     await this.auth.sendPasswordResetEmail(email)
   }
 }
