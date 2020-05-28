@@ -17,16 +17,22 @@ const Login = (props) => {
     authenticateUser
   );
 
+  // state
   const [login, setLogin] = useState(true);
+  const [firebaseError, setFirebaseError] = useState(null);
 
   // firebase authenticate user
   async function authenticateUser() {
     const { name, email, password } = values;
-    const response = login
-      ? await firebase.login(email, password)
-      : await firebase.register(name, email, password);
-
-    console.log({response});
+    try {
+      login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password);
+    }
+    catch (err) {
+      console.log('Authentication Error', err);
+      setFirebaseError(err.message);
+    }
   }
 
   return (
@@ -75,9 +81,9 @@ const Login = (props) => {
             className={errors.password && ''}
           />
           {errors.password &&
-            <div className="ui pointing red basic label">
-              {errors.password}
-            </div>
+            <div className="ui pointing red basic label">{errors.password}</div>}
+          {firebaseError && 
+          <div className="ui pointing red basic label">{firebaseError}</div>
           }
         </div>
         <button className="ui button" type="submit" disabled={isSubmitting} style={{ background: isSubmitting ? 'grey' : 'teal', color: isSubmitting ? 'black' : 'white' }}>Submit</button>
