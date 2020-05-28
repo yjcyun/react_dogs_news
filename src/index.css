@@ -28,9 +28,9 @@
 
 /* link item */
 .vote-btn {
-  margin-left: 0.5rem;
   color: darkgray;
-
+  margin-left: -1.3rem;
+  margin-right:0.5rem;
 }
 .content{
   margin-left: 2.7rem !important;
@@ -38,3 +38,4 @@
 .delete-btn{
   color: red;
 }
+

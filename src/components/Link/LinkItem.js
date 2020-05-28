@@ -42,11 +42,12 @@ const LinkItem = ({ link, index, showCount, history }) => {
       <div className="comment">
         <div className="avatar">
           {showCount && <span>{index}.
-          <span onClick={handleVote} className="vote-btn">⯅</span></span>}
+          </span>}
         </div>
 
         <div className="content">
           <span className="author">
+            <span onClick={handleVote} className="vote-btn">⯅</span>
             {link.description}
           </span>
           <div className="metadata">
