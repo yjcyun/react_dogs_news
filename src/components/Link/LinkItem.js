@@ -24,6 +24,19 @@ const LinkItem = ({ link, index, showCount, history }) => {
     }
   }
 
+  function handleDeleteLink() {
+    const linkRef = firebase.db.collection('links').doc(link.id);
+    linkRef.delete()
+      .then(() => {
+        console.log(`Document with ID ${link.id} deleted`)
+      })
+      .catch(err => {
+        console.error('Error deleting document:', err)
+      });
+  }
+
+  const postedByAuthUser = user && user.uid === link.postedBy.id;
+
   return (
     <div className="ui comments">
       <div className="comment">
@@ -33,9 +46,9 @@ const LinkItem = ({ link, index, showCount, history }) => {
         </div>
 
         <div className="content">
-          <a className="author">
+          <span className="author">
             {link.description}
-          </a>
+          </span>
           <div className="metadata">
             <span className="date">({getDomain(link.url)})</span>
           </div>
@@ -47,6 +60,12 @@ const LinkItem = ({ link, index, showCount, history }) => {
                 ? `${link.comments.length} comments`
                 : `discuss`}
             </Link>
+            {postedByAuthUser && (
+              <>
+                {" | "}
+                <span className="delete-btn"onClick={handleDeleteLink}>delete</span>
+              </>
+            )}
           </div>
         </div>
       </div>
