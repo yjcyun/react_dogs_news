@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useFormValidation from './useFormValidation';
+import validateLogin from './validateLogin';
 
 const INITIAL_STATE = {
   name: '',
@@ -8,10 +9,14 @@ const INITIAL_STATE = {
 }
 
 const Login = (props) => {
-  const { handleChange, handleSubmit, values } = useFormValidation(INITIAL_STATE);
+  const { handleChange, handleSubmit, handleBlur, errors, isSubmitting, values } = useFormValidation(
+    INITIAL_STATE,
+    validateLogin
+  );
   const [login, setLogin] = useState(true);
 
   return (
+
     <div className="ui container">
       <h2>{login ? 'Login' : 'Create Account'}</h2>
       <form onSubmit={handleSubmit} className="ui form">
@@ -23,6 +28,7 @@ const Login = (props) => {
             autoComplete="off"
             onChange={handleChange}
             value={values.name}
+            onBlur={handleBlur}
           />
         </div>
         }
@@ -34,8 +40,16 @@ const Login = (props) => {
             autoComplete="off"
             onChange={handleChange}
             values={values.email}
+            onBlur={handleBlur}
+            className={errors.email && ''}
           />
+          {errors.email &&
+            <div className="ui pointing red basic label">
+              {errors.email}
+            </div>
+          }
         </div>
+
         <div className="field">
           <input
             type="password"
@@ -44,9 +58,16 @@ const Login = (props) => {
             autoComplete="current-password"
             onChange={handleChange}
             values={values.password}
+            onBlur={handleBlur}
+            className={errors.password && ''}
           />
+          {errors.password &&
+            <div className="ui pointing red basic label">
+              {errors.password}
+            </div>
+          }
         </div>
-        <button className="ui button" type="submit">Submit</button>
+        <button className="ui button" type="submit" disabled={isSubmitting} style={{ background: isSubmitting ? 'grey' : 'teal', color: isSubmitting ? 'black' : 'white' }}>Submit</button>
         <button
           className="ui button"
           type="button"
