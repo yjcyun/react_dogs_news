@@ -1,0 +1,17 @@
+.menu-bar {
+  position:absolute;
+  top: 2%;
+  right: 5%;
+  font-size: 1.4rem;
+  color: white;
+  background: transparent;
+  outline: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@media( min-width: 768px) {
+  .menu-bar{
+    display:none;
+  }
+}

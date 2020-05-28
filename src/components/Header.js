@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 
 
 const Header = () => {
+  const [isOpen, setOpen] = useState(false);
+  const toggleNavbar = () => {
+    setOpen(!isOpen);
+  };
+
   return (
     <div className="ui stackable teal inverted top menu">
       <div className="item">
@@ -12,6 +17,9 @@ const Header = () => {
           Dogs News
         </NavLink>
       </div>
+      <button className="menu-bar" onClick={toggleNavbar}>
+        <i className="bars icon"></i>
+      </button>
 
       <NavLink to="/new" className="item">
         New
@@ -26,12 +34,13 @@ const Header = () => {
         Submit
       </NavLink>
 
-    <div className="right menu">
+      <div className="right menu">
         <NavLink to="/login" className="item">
           Login
       </NavLink>
+      </div>
     </div>
-    </div>
+
   )
 }
 
