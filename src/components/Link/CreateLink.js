@@ -26,7 +26,8 @@ const CreateLink = (props) => {
         },
         votes: [],
         comments: [],
-        created: Date.now()
+        created: Date.now(),
+        voteCount: 0
       };
       firebase.db.collection('links').add(newLink);
       props.history.push('/');

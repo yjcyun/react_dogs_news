@@ -13,25 +13,25 @@ const Header = () => {
           <img src="/logo.png" alt="Dog News Logo" />
           {/* Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> */}
           <NavLink to="/">
-            Dogs News
-        </NavLink>
+            Dog News
+          </NavLink>
         </div>
         {/* <button className="menu-bar">
         <i className="bars icon"></i>
       </button> */}
 
-        <NavLink to="/new" className="item">
+        <NavLink to="/" className="item">
           New
-      </NavLink>
+        </NavLink>
         <NavLink to="/top" className="item">
           Top
-      </NavLink>
+        </NavLink>
         <NavLink to="/search" className="item">
           Search
-      </NavLink>
+        </NavLink>
         {user && <NavLink to="/create" className="item">
           Submit
-      </NavLink>}
+        </NavLink>}
 
         <div className="right menu">
           {user

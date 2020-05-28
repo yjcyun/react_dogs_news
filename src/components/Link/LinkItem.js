@@ -18,7 +18,8 @@ const LinkItem = ({ link, index, showCount, history }) => {
           const previousVotes = doc.data().votes;
           const vote = { votedBy: { id: user.uid, name: user.displayName } };
           const updatedVotes = [...previousVotes, vote];
-          voteRef.update({ votes: updatedVotes })
+          const voteCount = updatedVotes.length;
+          voteRef.update({ votes: updatedVotes, voteCount })
         }
       })
     }
@@ -54,7 +55,7 @@ const LinkItem = ({ link, index, showCount, history }) => {
             <span className="date">({getDomain(link.url)})</span>
           </div>
           <div className="text">
-            {link.votes.length} votes by {link.postedBy.name}{" "}{formatDistanceToNow(link.created)}
+            {link.voteCount} votes by {link.postedBy.name}{" "}{formatDistanceToNow(link.created)}
             {" | "}
             <Link to={`/link/${link.id}`}>
               {link.comments.length > 0
@@ -64,7 +65,7 @@ const LinkItem = ({ link, index, showCount, history }) => {
             {postedByAuthUser && (
               <>
                 {" | "}
-                <span className="delete-btn"onClick={handleDeleteLink}>delete</span>
+                <span className="delete-btn" onClick={handleDeleteLink}>delete</span>
               </>
             )}
           </div>
