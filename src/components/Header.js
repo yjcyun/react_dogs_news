@@ -28,21 +28,20 @@ const Header = () => {
       <NavLink to="/search" className="item">
         Search
       </NavLink>
-      <NavLink to="/create" className="item">
+      {user && <NavLink to="/create" className="item">
         Submit
-      </NavLink>
+      </NavLink>}
 
       <div className="right menu">
-        {user ? (
-          <>
+        {user
+          ? (<>
             <div className="item">{user.displayName}</div>
-            <div className="item">Logout</div>
-          </>
-        ) : (
-            <NavLink to="/login" className="item">
-              Login
-            </NavLink>
-          )}
+            <div className="item logout" onClick={() => firebase.logout()}>Logout</div>
+          </>)
+          : (<NavLink to="/login" className="item">
+            Login
+          </NavLink>)
+        }
       </div>
     </div>
 

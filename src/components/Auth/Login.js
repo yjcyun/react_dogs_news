@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
 import firebase from '../../firebase';
@@ -83,8 +84,8 @@ const Login = (props) => {
           />
           {errors.password &&
             <div className="ui pointing red basic label">{errors.password}</div>}
-          {firebaseError && 
-          <div className="ui pointing red basic label">{firebaseError}</div>
+          {firebaseError &&
+            <div className="ui pointing red basic label">{firebaseError}</div>
           }
         </div>
         <button className="ui button" type="submit" disabled={isSubmitting} style={{ background: isSubmitting ? 'grey' : 'teal', color: isSubmitting ? 'black' : 'white' }}>Submit</button>
@@ -96,6 +97,11 @@ const Login = (props) => {
           {login ? 'Need to create an account?' : 'Already have an account?'}
         </button>
       </form>
+
+      <div className="forgot">
+        <Link to="/forgot">Forgot password?</Link>
+      </div>
+
     </div>
   )
 }

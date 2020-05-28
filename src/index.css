@@ -15,3 +15,13 @@
     display:none;
   }
 }
+
+/* logout button */
+.logout {
+  cursor: pointer;
+}
+
+/* forgot password link */
+.forgot {
+  margin-top: 2rem;
+}
