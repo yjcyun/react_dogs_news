@@ -48,7 +48,7 @@ const LinkItem = ({ link, index, showCount, history }) => {
         <div className="content">
           <span className="author">
             <span onClick={handleVote} className="vote-btn">⯅</span>
-            {link.description}
+            <a href={link.url} className="link-url">{link.description}</a>
           </span>
           <div className="metadata">
             <span className="date">({getDomain(link.url)})</span>

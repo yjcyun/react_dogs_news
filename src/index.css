@@ -38,4 +38,15 @@
 .delete-btn{
   color: red;
 }
+.link-url{
+  color: black;
+}
+.link-url:hover{
+  color: black;
+}
+
+/* comment */
+.comment-content {
+  margin-left: 0.5rem !important;
+}
 
