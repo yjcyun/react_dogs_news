@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FirebaseContext } from '../../firebase';
 import LinkItem from './LinkItem';
 import { LINKS_PER_PAGE } from '../../utils';
+import axios from 'axios';
 
 const LinkList = (props) => {
   const { firebase } = useContext(FirebaseContext);
@@ -41,6 +42,17 @@ const LinkList = (props) => {
         .startAfter(cursor.created)
         .limit(LINKS_PER_PAGE)
         .onSnapshot(handleSnapshot);
+    }
+    else {
+      const offset = page * LINKS_PER_PAGE - LINKS_PER_PAGE;
+      axios.get(`https://us-central1-dog-news-b10d7.cloudfunctions.net/linksPagination?offset=${offset}`)
+        .then(response => {
+          const links = response.data;
+          const lastLink = links[links.length - 1];
+          setLinks(links);
+          setCursor(lastLink);
+        });
+      return () => { }
     }
   }
 
